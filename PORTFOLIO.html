@@ -1,0 +1,363 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rahil Boubakour — Futuristic Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:Orbitron, sans-serif;
+  background:#000;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* ===== Animated Grid Background ===== */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(rgba(0,255,255,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,255,.08) 1px, transparent 1px);
+  background-size:40px 40px;
+  animation:gridMove 20s linear infinite;
+  pointer-events:none;
+}
+@keyframes gridMove{from{transform:translateY(0)}to{transform:translateY(40px)}}
+
+/* ===== Floating Energy Orbs ===== */
+.orb{
+ position:fixed;
+ width:60px;height:60px;
+ border-radius:50%;
+ background:radial-gradient(circle,#0ff,#0ff0);
+ box-shadow:0 0 25px #0ff,0 0 60px #0ff;
+ animation:orbMove 18s linear infinite, orbPulse 3s ease-in-out infinite;
+ mix-blend-mode:screen;
+}
+@keyframes orbMove{
+  0%{transform:translate(0,0)}
+  25%{transform:translate(40vw,20vh)}
+  50%{transform:translate(10vw,70vh)}
+  75%{transform:translate(70vw,40vh)}
+  100%{transform:translate(0,0)}
+}
+@keyframes orbPulse{0%,100%{filter:brightness(1)}50%{filter:brightness(2)}}
+
+/* ===== Sections ===== */
+section{
+ min-height:100vh;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ gap:20px;
+ padding:40px 20px;
+ position:relative;
+}
+
+.glow-box{
+ background:rgba(0,0,0,.7);
+ border:1px solid #0ff;
+ box-shadow:0 0 20px #0ff, inset 0 0 20px #0ff2;
+ border-radius:16px;
+ padding:30px;
+ backdrop-filter:blur(6px);
+ animation:boxFloat 4s ease-in-out infinite alternate;
+ max-width:1100px;
+}
+@keyframes boxFloat{from{transform:translateY(0)}to{transform:translateY(-12px)}}
+
+h1,h2{
+ text-shadow:0 0 12px #0ff,0 0 30px #0ff;
+ animation:titlePulse 2.5s ease-in-out infinite alternate;
+}
+@keyframes titlePulse{from{letter-spacing:1px}to{letter-spacing:4px}}
+
+/* ===== Profile (Bigger + more motion) ===== */
+.profile{
+ width:210px;height:210px;border-radius:50%;
+ border:3px solid #0ff;
+ box-shadow:0 0 30px #0ff,0 0 120px #0ff;
+ animation:spinSlow 16s linear infinite, profilePulse 3s ease-in-out infinite;
+ object-fit:cover;
+}
+@keyframes spinSlow{to{transform:rotate(360deg)}}
+@keyframes profilePulse{
+ 0%,100%{box-shadow:0 0 30px #0ff,0 0 120px #0ff}
+ 50%{box-shadow:0 0 70px #0ff,0 0 200px #0ff}
+}
+
+/* ===== Skills ===== */
+.skills li{
+ list-style:none;
+ margin:10px 0;
+ padding:10px 18px;
+ border:1px solid #0ff;
+ border-radius:999px;
+ box-shadow:0 0 15px #0ff3;
+ animation:skillWave 3s ease-in-out infinite;
+}
+@keyframes skillWave{0%,100%{transform:translateX(0)}50%{transform:translateX(12px)}}
+
+/* ===== Tech Logos ===== */
+.tech-logos{
+ display:flex;
+ flex-wrap:wrap;
+ gap:18px;
+ justify-content:center;
+ margin-top:20px;
+}
+.tech-logos img{
+ width:56px;
+ height:56px;
+ object-fit:contain;
+ filter:drop-shadow(0 0 8px #0ff);
+ animation:logoFloat 4s ease-in-out infinite;
+}
+@keyframes logoFloat{
+ 0%,100%{transform:translateY(0)}
+ 50%{transform:translateY(-10px)}
+}
+
+/* ===== Projects ===== */
+.projects{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+ gap:24px;
+ width:100%;max-width:1200px;
+}
+.card{
+ position:relative;
+ background:#020202;
+ border:1px solid #0ff;
+ border-radius:16px;
+ overflow:hidden;
+ cursor:pointer;
+ transform-style:preserve-3d;
+ animation:cardIdle 6s ease-in-out infinite alternate;
+}
+@keyframes cardIdle{from{transform:rotateY(-3deg)}to{transform:rotateY(3deg)}}
+.card:hover{transform:rotateY(12deg) scale(1.06);box-shadow:0 0 40px #0ff}
+.card img{width:100%;height:180px;object-fit:cover}
+.card h3{padding:14px}
+.card p{padding:0 14px 14px;opacity:.8;font-size:13px}
+
+.card::after{
+ content:"";
+ position:absolute;inset:-2px;
+ background:linear-gradient(45deg,#0ff0,#0ff,#0ff0);
+ opacity:.4;
+ filter:blur(8px);
+ animation:borderRun 4s linear infinite;
+}
+@keyframes borderRun{to{transform:rotate(360deg)}}
+
+/* ===== Modal Gallery ===== */
+.modal{
+ position:fixed;inset:0;
+ background:#000c;
+ display:none;
+ justify-content:center;
+ align-items:center;
+ z-index:999;
+}
+.modal-content{
+ background:#050505;
+ border:2px solid #0ff;
+ border-radius:16px;
+ padding:20px;
+ width:90%;max-width:900px;
+ box-shadow:0 0 60px #0ff;
+ animation:modalIn .4s ease;
+}
+@keyframes modalIn{from{transform:scale(.6)}to{transform:scale(1)}}
+
+.gallery{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+ gap:10px;
+}
+.gallery img, .gallery video{
+ width:100%;border-radius:10px;
+ border:1px solid #0ff;
+ box-shadow:0 0 12px #0ff;
+ cursor:pointer;
+ transition:.3s;
+}
+.gallery img:hover{transform:scale(1.15)}
+
+.close{float:right;cursor:pointer;font-size:22px}
+
+/* ===== Image Zoom Viewer ===== */
+#imgZoom{
+ position:fixed;
+ inset:0;
+ background:#000e;
+ display:none;
+ justify-content:center;
+ align-items:center;
+ z-index:2000;
+}
+#imgZoom img{
+ max-width:92%;
+ max-height:92%;
+ border:2px solid #0ff;
+ box-shadow:0 0 40px #0ff;
+ border-radius:14px;
+}
+
+/* ===== Extra fillers ===== */
+.badges{
+ display:flex;
+ flex-wrap:wrap;
+ gap:12px;
+ justify-content:center;
+ margin-top:18px;
+}
+.badge{
+ padding:8px 14px;
+ border:1px solid #0ff;
+ border-radius:999px;
+ box-shadow:0 0 12px #0ff4;
+ font-size:12px;
+}
+
+
+
+
+#contact button{
+  padding:12px 24px;
+  border-radius:999px;
+  border:1px solid #0ff;
+  background:#000;
+  color:#0ff;
+  cursor:pointer;
+  font-family:Orbitron;
+  box-shadow:0 0 18px #0ff4;
+  transition:.3s;
+}
+#contact button:hover{
+  background:#0ff;
+  color:#000;
+  box-shadow:0 0 28px #0ff;
+}
+
+</style></head><body><!-- ENERGY ORBS --><div class="orb" style="top:10%;left:5%"></div>
+<div class="orb" style="top:70%;left:80%;animation-delay:4s"></div>
+<div class="orb" style="top:40%;left:40%;animation-delay:8s"></div>
+<div class="orb" style="top:20%;left:70%;animation-delay:12s"></div>
+<div class="orb" style="top:85%;left:25%;animation-delay:16s"></div><!-- INTRO --><section>
+<div class="glow-box">
+<img src="portfolio.jfif" class="profile">
+<h1>Rahil Boubakour</h1>
+<p>
+Full Stack Developper / Media & Information Systems Engineer — Specialized in Software & Programming Systems.<br>
+I design intelligent, modern, high‑impact digital solutions and business applications.
+</p><div class="badges">
+<span class="badge">Business Apps</span>
+<span class="badge">Stock Systems</span>
+<span class="badge">Pharmacy Software</span>
+<span class="badge">Dashboards</span>
+<span class="badge">Automation</span>
+</div>
+</div>
+</section><!-- SKILLS --><section>
+<div class="glow-box">
+<h2>Core Skills</h2>
+<ul class="skills">
+<li>Advanced HTML / CSS / JavaScript</li>
+<li>PHP & SQL Systems</li>
+<li>Desktop & Web Applications</li>
+<li>UI/UX Engineering</li>
+<li>Information Systems Architecture</li>
+</ul><!-- TECH LOGOS (you can replace src with your own icons) --><div class="tech-logos">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xml/xml-original.svg">
+</div></div>
+</section><!-- PROJECTS --><section>
+<h2>My Projects</h2>
+<div class="projects"><div class="card" onclick="openModal('dhlModal')">
+<img src="DHL RETORS APP/1.png">
+<h3>Stock & Returns System</h3>
+<p>Enterprise return workflow, depot control, invoice validation and stock tracking.</p>
+</div><div class="card" onclick="openModal('storeModal')">
+<img src="store/1.png">
+<h3>Store Management App</h3>
+<p>Sales, purchases, supplier tracking and smart inventory dashboard.</p>
+</div><div class="card" onclick="openModal('pharmaModal')">
+<img src="MEMOIRE IMGS/1.PNG">
+<h3>Pharmacy Management</h3>
+<p>Orders, prescriptions, billing and pharmaceutical stock operations.</p>
+</div><div class="card" onclick="openModal('stockModal')">
+<img src="dhl stockk app/6.png">
+<h3>Stock System</h3>
+<p>Warehouse monitoring and movement history system.</p>
+</div></div>
+</section><!-- ===== MODALS ===== --><!-- DHL --><div class="modal" id="dhlModal"><div class="modal-content">
+<span class="close" onclick="closeModal('dhlModal')">✕</span>
+<h2>DHL Project Gallery</h2>
+<div class="gallery">
+<video src="DHL RETORS APP/viddhl.mp4" controls></video>
+<img src="DHL RETORS APP/1.png"><img src="DHL RETORS APP/2.png"><img src="DHL RETORS APP/3.png">
+<img src="DHL RETORS APP/4.png"><img src="DHL RETORS APP/5.png"><img src="DHL RETORS APP/6.png">
+<img src="DHL RETORS APP/7.png"><img src="DHL RETORS APP/8.png"><img src="DHL RETORS APP/9.png">
+<img src="DHL RETORS APP/10.png"><img src="DHL RETORS APP/11.png">
+</div></div></div><!-- STORE --><div class="modal" id="storeModal"><div class="modal-content">
+<span class="close" onclick="closeModal('storeModal')">✕</span>
+<h2>Store App Gallery</h2>
+<div class="gallery">
+  <video src="store/vidstore.mp4" controls></video>
+<img src="store/1.png"><img src="store/2.png"><img src="store/3.png">
+</div></div></div><!-- PHARMA --><div class="modal" id="pharmaModal"><div class="modal-content">
+<span class="close" onclick="closeModal('pharmaModal')">✕</span>
+<h2>Pharmacy App Gallery</h2>
+<div class="gallery">
+<img src="MEMOIRE IMGS/1.PNG"><img src="MEMOIRE IMGS/2.PNG"><img src="MEMOIRE IMGS/3.PNG">
+<img src="MEMOIRE IMGS/4.PNG"><img src="MEMOIRE IMGS/5.PNG"><img src="MEMOIRE IMGS/6.PNG">
+<img src="MEMOIRE IMGS/7.PNG"><img src="MEMOIRE IMGS/8.PNG"><img src="MEMOIRE IMGS/9.PNG">
+<img src="MEMOIRE IMGS/10.PNG"><img src="MEMOIRE IMGS/11.PNG"><img src="MEMOIRE IMGS/12.PNG">
+<img src="MEMOIRE IMGS/13.PNG"><img src="MEMOIRE IMGS/14.PNG"><img src="MEMOIRE IMGS/15.PNG">
+<img src="MEMOIRE IMGS/16.PNG">
+</div></div></div><!-- STOCK --><div class="modal" id="stockModal"><div class="modal-content">
+<span class="close" onclick="closeModal('stockModal')">✕</span>
+<h2>Stock System Gallery</h2>
+<div class="gallery">
+<img src="dhl stockk app/1.png"><img src="dhl stockk app/2.png"><img src="dhl stockk app/3.png">
+<img src="dhl stockk app/4.png"><img src="dhl stockk app/5.png"><img src="dhl stockk app/6.png">
+<img src="dhl stockk app/7.png">
+</div></div></div><!-- IMAGE ZOOM --><div id="imgZoom" onclick="this.style.display='none'"><img id="zoomedImg"></div><script>
+function openModal(id){document.getElementById(id).style.display='flex'}
+function closeModal(id){document.getElementById(id).style.display='none'}
+
+// image zoom
+
+document.querySelectorAll('.gallery img').forEach(img=>{
+ img.onclick=()=>{
+  document.getElementById('zoomedImg').src=img.src;
+  document.getElementById('imgZoom').style.display='flex';
+ }
+});
+</script>
+
+<!-- CONTACT / ANIMATED -->
+<section id="contact">
+  <div class="glow-box">
+    <h2>Get in Touch</h2>
+    <p style="opacity:.85;">Feel free to reach out for collaborations or projects.</p>
+    <div class="tech-logos" style="justify-content:center;gap:18px;margin-top:20px;animation:logoFloat 4s ease-in-out infinite;">
+      <button onclick="window.open('mailto:rahilboubakour@gmail.com')">📧 Email Me</button>
+      <button onclick="window.open('https://www.linkedin.com/in/rahil-boubakour-25299b3a8/')">💼 LinkedIn</button>
+      <button onclick="window.open('https://github.com/Rorotaroo','_blank')">💻 GitHub</button>
+      <button onclick="window.open('https://t.me/Roroexpress','_blank')">📲 Telegram</button>
+    </div>
+    <p style="margin-top:22px;opacity:.7;font-size:12px;">Portfolio designed & built by Rahil Boubakour</p>
+  </div>
+</section>
+</body>
+</html>
